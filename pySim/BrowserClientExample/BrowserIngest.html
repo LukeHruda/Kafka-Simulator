@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+
+<html>
+   <head>
+      
+      <script type = "text/javascript">
+
+         // This is a shitty attempt at building tables by ingesting parameters from a TCP loop
+
+         var table = document.getElementById("values");
+         var names = null;
+         var values = [];
+
+         function WebSocketTest() {
+
+            if ("WebSocket" in window) {
+               alert("Testing Websocket!");
+               
+               // Let us open a web socket
+               var ws = new WebSocket("ws://localhost:5550");
+				
+               ws.onopen = function() {
+                  console.log("Open Socket");
+                  // Web Socket is connected, send data using send()
+                  ws.send("scanhere");
+               };
+				
+               ws.onmessage = function (evt) {
+                  console.log("message!");
+                  console.log(evt.data);
+                  var received_msg = evt.data;
+                  if (names == null) {
+                     names = received_msg.split(",");
+
+                     for(let i =0; i < values.length; i++) {
+                        // make row
+                        let row = document.createElement("TR");
+                        row.setAttribute("id", "row_"+toString(i));
+                        table.appendChild(row);
+                        // make td name
+                        let td_name = document.createElement("TD");
+                        td_name.setAttribute("id","name_"+toString(i));
+                        td_name.innerHTML = names[i];
+                        row.appendChild(td_name);
+                        // make td value
+                        let td_value = document.createElement("TD");
+                        td_value.setAttribute("id","value_"+toString(i));
+                        row.appendChild(td_value);
+                     }
+                  } else {
+                     values = received_msg.split(",");
+                     for(let i=0; i < values.length; i++) {
+                        elem = document.getElementById("value_"+toString(i));
+                        elem.innerHTML = values[i];
+                     }
+                  }
+               };
+				
+               ws.onclose = function() { 
+                  // websocket is closed.
+                  console.log("Connection closed!");
+                  alert("The connection was closed."); 
+               };
+            } else {
+              
+               // The browser doesn't support WebSocket
+               alert("WebSocket is not supported by your Browser.");
+            }
+         }
+      </script>
+		
+   </head>
+   
+   <body>
+      <div id = "sse">
+         <a href = "javascript:WebSocketTest()">Run WebSocket</a>
+      </div>
+      
+      <h2 class="center">Real-time Values from TCP socket</h2>
+      
+      <table class="center" id="values">
+         <tr>
+           <th>Parameter</th>
+           <th>Value</th> 
+         </tr>
+      </table>
+
+
+   </body>
+</html>

@@ -1,0 +1,12 @@
+{
+    "a0":{"value":0,"unit":"mV","description":"Analog channel 0"},
+    "a1":{"value":0,"unit":"mV","description":"Analog channel 1"},
+    "a2":{"value":0,"unit":"mV","description":"Analog channel 2"},
+    "a3":{"value":0,"unit":"mV","description":"Analog channel 3"},
+    "a4":{"value":0,"unit":"mV","description":"Analog channel 4"},
+    "a5":{"value":0,"unit":"mV","description":"Analog channel 5"},
+    "a6":{"value":0,"unit":"mV","description":"Analog channel 6"},
+    "a7":{"value":0,"unit":"mV","description":"Analog channel 7"},
+    "a8":{"value":0,"unit":"mV","description":"Analog channel 8"},
+    "a9":{"value":0,"unit":"mV","description":"Analog channel 9"}
+}   
